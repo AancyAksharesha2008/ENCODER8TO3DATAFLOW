@@ -1,63 +1,77 @@
-### ENCODER 8TO3 DATAFLOW Modelling
+# SR-FLIPFLOP-USING-CASE
 
 **AIM:**
 
-To implement  Encoder 8 To 3 in Dataflow Modelling using verilog and validating their functionality using their functional tables
+To implement  SR flipflop using verilog and validating their functionality using their functional tables
 
-**SOFTWARE REQUIRED:** Quartus prime
+**SOFTWARE REQUIRED:**
+
+Quartus prime
 
 **THEORY**
 
-**Encoder 8 To 3**
+SR Flip-Flop SR flip-flop operates with only positive clock transitions or negative clock transitions. Whereas, SR latch operates with enable signal. The circuit diagram of SR flip-flop is shown in the following figure.
 
-The 8 to 3 line Encoder is also known as Octal to Binary Encoder. In 8 to 3 line encoder, there is a total of eight inputs, i.e., D0, D1, D2, D3, D4, D5, D6, and D7 and three outputs, i.e., A0, A1, and A2. In 8-input lines, one input-line is set to true at a time to get the respective binary code in the output side. Below are the block diagram and the truth table of the 8 to 3 line encoder.
+![image](https://github.com/naavaneetha/SR-FLIPFLOP-USING-CASE/assets/154305477/0f710028-ad52-4d3e-9276-8714cf023a25)
 
-![image](https://github.com/naavaneetha/ENCODER8TO3DATAFLOW/assets/154305477/0bc242c1-eb9e-4c47-afe5-30428470efc3)
+ 
+This circuit has two inputs S & R and two outputs Qtt & Qtt’. The operation of SR flipflop is similar to SR Latch. But, this flip-flop affects the outputs only when positive transition of the clock signal is applied instead of active enable. The following table shows the state table of SR flip-flop.
 
-Figure 01  Block Diagram of Encoder 8 * 3
+![image](https://github.com/naavaneetha/SR-FLIPFLOP-USING-CASE/assets/154305477/dabfc4f4-87e3-4cbc-9472-f89ee1b5ed30)
 
-**Truth Table**
+ 
+Here, Qtt & Qt+1t+1 are present state & next state respectively. So, SR flip-flop can be used for one of these three functions such as Hold, Reset & Set based on the input conditions, when positive transition of clock signal is applied. The following table shows the characteristic table of SR flip-flop. Present Inputs Present State Next State
 
-![image](https://github.com/naavaneetha/ENCODER8TO3DATAFLOW/assets/154305477/35496b14-ae6e-4cd1-9abd-d6736b576575)
+![image](https://github.com/naavaneetha/SR-FLIPFLOP-USING-CASE/assets/154305477/dd90d16c-aec5-4290-a586-e2346b1e9eb5)
 
-The logical expression of the term A0, A1, and A2 are as follows:
+ 
+By using three variable K-Map, we can get the simplified expression for next state, Qt+1t+1. The three variable K-Map for next state, Qt+1t+1 is shown in the following figure.
 
-A0 = D1 + D3 + D5 + D7
+![image](https://github.com/naavaneetha/SR-FLIPFLOP-USING-CASE/assets/154305477/473efad6-d70b-4ca7-aeb7-898bbfca319f)
 
-A1 = D2 + D3 + D6 + D7
-
-A2 = D4 + D5 + D6 + D7
-
-Logical circuit of the above expressions is given below:
-
-![image](https://github.com/naavaneetha/ENCODER8TO3DATAFLOW/assets/154305477/95acaee6-c873-4c75-89eb-ef09fb158053)
-
-Figure 02  Encoder 8 * 3
+ 
+The maximum possible groupings of adjacent ones are already shown in the figure. Therefore, the simplified expression for next state Qt+1t+1 is Q(t+1)=S+R′Q(t)Q(t+1)=S+R′Q(t)
 
 **Procedure**
-/* write all the steps invloved */
-![exp 5 program update](https://github.com/23003250/ENCODER8TO3DATAFLOW/assets/139331462/b2a06568-bdd4-42d0-9a18-524225b3d688)
+
 /* write all the steps invloved */
 
 **PROGRAM**
-![exp 5 program update](https://github.com/23003250/ENCODER8TO3DATAFLOW/assets/139331462/b2a06568-bdd4-42d0-9a18-524225b3d688)
 
-/* Program for Encoder 8 To 3 in Dataflow Modelling and verify its truth table in quartus using Verilog programming. 
-
-Developed by: Aancy Aksharesha A RegisterNumber:212225040003
+/* Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by: Aancy Aksharesha A RegisterNumber:21222504003
 */
 
-**RTL LOGIC FOR Encoder 8 To 3 in Dataflow Modelling**
-![exp 5 rtl logic](https://github.com/23003250/ENCODER8TO3DATAFLOW/assets/139331462/c8cb2265-4505-4f56-a177-9e8f038f47ae)
+~~~
+module sr(q, q_bar, s,r, clk, reset);
+  input s,r,clk, reset;
+  output reg q;
+  output q_bar;
+ 
+  always@(posedge clk) begin
+    if(!reset)       
+			q <= 0;
+    else 
+  begin
+      case({s,r})       
+	     2'b00: q <= q;
+        2'b01:q<=1'b0;
+        2'b10:q<=1'b1;
+        2'b11:q<=1'bx;
+      endcase
+    end
+  end
+  assign q_bar = ~q;
+endmodule
+~~~
 
-**TIMING DIGRAMS FOR Encoder 8 To 3 in Dataflow Modelling**
-![exp 5 tt](https://github.com/23003250/ENCODER8TO3DATAFLOW/assets/139331462/d853a781-f957-440c-84f7-bf062b963455)
+**RTL LOGIC FOR FLIPFLOPS**
+<img width="1122" height="583" alt="Screenshot 2026-03-09 213450" src="https://github.com/user-attachments/assets/75ac22c8-8e9f-44dc-92e1-9c2af9fc06a1" />
+**TIMING DIGRAMS FOR FLIP FLOPS**
+<img width="1126" height="618" alt="Screenshot 2026-03-09 213514" src="https://github.com/user-attachments/assets/95100b53-7d85-4d2b-a0d7-2a578253702a" />
+
 
 **RESULTS**
-implementing Encoder 8 To 3 in Dataflow Modelling using verilog and validating their functionality using their functional tables executed succesfully.
-
-**RESULTS**
-
+The observation of the simulation results and confirm the successful execution of the program.
 
 
 
